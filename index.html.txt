@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Кто ты из Очень странных дел?</title>
+
+<style>
+body {
+    background: #0b0b0b;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    color: #e50914;
+}
+
+.question {
+    margin: 20px 0;
+}
+
+button {
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #b20710;
+}
+
+#result {
+    margin-top: 30px;
+    font-size: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Кто ты из сериала «Очень странные дела»?</h1>
+
+<div class="question">
+<p>1. Что ты сделаешь в опасной ситуации?</p>
+<label><input type="radio" name="q1" value="eleven"> Использую силу</label><br>
+<label><input type="radio" name="q1" value="mike"> Придумаю план</label><br>
+<label><input type="radio" name="q1" value="dustin"> Пошучу</label>
+</div>
+
+<div class="question">
+<p>2. Какой ты в компании друзей?</p>
+<label><input type="radio" name="q2" value="mike"> Лидер</label><br>
+<label><input type="radio" name="q2" value="dustin"> Весельчак</label><br>
+<label><input type="radio" name="q2" value="eleven"> Немного загадочный</label>
+</div>
+
+<button onclick="showResult()">Узнать результат</button>
+
+<div id="result"></div>
+
+<script>
+function showResult() {
+    let scores = {
+        eleven: 0,
+        mike: 0,
+        dustin: 0
+    };
+
+    let answers = document.querySelectorAll('input[type="radio"]:checked');
+
+    if (answers.length < 2) {
+        alert("Ответь на все вопросы 🙂");
+        return;
+    }
+
+    answers.forEach(answer => {
+        scores[answer.value]++;
+    });
+
+    let character = Object.keys(scores).reduce((a, b) =>
+        scores[a] > scores[b] ? a : b
+    );
+
+    let resultText = "";
+
+    if (character === "eleven") {
+        resultText = "Ты — Одинадцать 🧠💥 Сильный и смелый.";
+    } else if (character === "mike") {
+        resultText = "Ты — Майк 🧭 Лидер и верный друг.";
+    } else if (character === "dustin") {
+        resultText = "Ты — Дастин 😄 Душа компании!";
+    }
+
+    document.getElementById("result").innerText = resultText;
+}
+</script>
+
+</body>
+</html>
